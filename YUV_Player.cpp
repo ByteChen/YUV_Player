@@ -1,5 +1,4 @@
-// YUV.cpp : 定义应用程序的入口点。
-//
+
 
 #include "stdafx.h"
 #include "YUV.h"
@@ -8,7 +7,6 @@
 #include <tchar.h>
 
 #define MAX_LOADSTRING 100
-
 
 int pixel_w = 176;
 int pixel_h = 144;
@@ -22,19 +20,11 @@ const int Width_i = 176;
 const int Height_i = 144;
 unsigned char Framebuffer[Width_i*Height_i * 3 / 2];
 unsigned char RGBframe[176 * 144 * 3];
-//int RGBframe[176 * 144 * 3];
-//int Framebuffer[Width_i*Height_i * 3 / 2];
-
 
 inline unsigned char CONVERT_ADJUST(double tmp)
 {
 	return (unsigned char)((tmp >= 0 && tmp <= 255) ? tmp : (tmp < 0 ? 0 : 255));
 }
-
-//inline int CONVERT_ADJUST(double tmp)
-//{
-//	return (int)((tmp >= 0 && tmp <= 255) ? tmp : (tmp < 0 ? 0 : 255));
-//}
 
 
 // 全局变量: 
@@ -59,79 +49,6 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
  	// TODO:  在此放置代码。
 	MSG msg;
 	HACCEL hAccelTable;
-
-	////自己写的
-	//const int Width_i = 176;
-	//const int Height_i = 144;
-	//unsigned char Framebuffer[Width_i*Height_i * 3 / 2];
-	//FILE *yuv_in = NULL;
-	//fopen_s(&yuv_in,"C:\\Users\\LabUser20\\Downloads\\tulips_yuv420_prog_planar_qcif.yuv", "rb");
-
-	//for (int i = 0; i < Width_i*Height_i * 3 / 2; i++)
-	//{
-	//	fread(&Framebuffer[i], sizeof(unsigned char), 1, yuv_in);
-	//}
-
-	///*unsigned char RGBframe[Width_i*Height_i*3];*/
-	//for (int j = 0; j < Width_i*Height_i; j++)
-	//{
-	//	char y, u, v, r, g, b;
-	//	y = Framebuffer[j];
-	//	//Yi对应的Ui次序
-	//	int Uorder = (j + 1) / (2 * Width_i)*(Width_i / 2) + ((j + 1) % Width_i) / 2 + ((j + 1) % Width_i % 2) - 1;
-	//	u = Framebuffer[Width_i*Height_i + Uorder];
-	//	v = Framebuffer[Width_i*Height_i + Width_i*Height_i / 4 + Uorder];
-	//	//u = 0, v = 0;
-	//	/*r = CONVERT_ADJUST (y + 1.14*v);
-	//	g = CONVERT_ADJUST( y - 0.39*u - 0.58*v);
-	//	b = CONVERT_ADJUST(y + 2.03*u);*/
-
-	//	r = CONVERT_ADJUST((y + (1.4075 * (v - 128))));
-	//	g = CONVERT_ADJUST((y - (0.3455 * (u - 128) - 0.7169 * (v - 128))));
-	//	b = CONVERT_ADJUST((y + (1.7790 * (u - 128))));
-
-	//	RGBframe[3 * j] = b;
-	//	RGBframe[3 * j + 1] = g;
-	//	RGBframe[3 * j + 2] = r;
-	//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	//HWND hwnd = NULL;
-	//hwnd = CreateWindow(_T("GDI"), _T("Simplest Video Play GDI"), WS_OVERLAPPEDWINDOW, 100, 100, 500, 500, NULL, NULL, hInstance, NULL);
-	///*if (hwnd == NULL)
-	//	return -1;*/
-	////int nShowCmd = 1;
-	//ShowWindow(hwnd, nCmdShow);
-	//UpdateWindow(hwnd);
-
-	//HDC hdc = GetDC(hwnd);
-//
-//	HWND hWnd;
-//
-//	hInst = hInstance; // 将实例句柄存储在全局变量中
-//
-//	hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-//		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
-//
-//	/*if (!hWnd)
-//	{
-//		return FALSE;
-//	}
-//*/
-//	ShowWindow(hWnd, nCmdShow);
-//	UpdateWindow(hWnd);
 
 	// 初始化全局字符串
 	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -217,13 +134,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    for (int k = 1; k < FrameNum;k++)
    {
 
-	   
-	   /*  const int Width_i = 176;
-		 const int Height_i = 144;
-		 unsigned char Framebuffer[Width_i*Height_i * 3 / 2];*/
-	   /*FILE *yuv_in = NULL;*/
-
-
 	   /* for (int i = 0; i < Width_i*Height_i * 3 / 2; i++)
 		{
 		fread(&Framebuffer[i], sizeof(unsigned char), 1, yuv_in);
@@ -237,9 +147,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		   fread(Framebuffer, sizeof(Framebuffer), 1, yuv_in);
 	   }
 
-	  
-
-	   /*unsigned char RGBframe[Width_i*Height_i*3];*/
 	   for (int j = 0; j < Width_i*Height_i; j++)
 	   {
 	    int y, u, v, r, g, b;
@@ -253,7 +160,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	    g = CONVERT_ADJUST( y - 0.39*u - 0.58*v);
 	    b = CONVERT_ADJUST(y + 2.03*u);*/
 
-		//KE YONG
+		
 	    r = CONVERT_ADJUST((y + (1.4075 * (v - 128))));
 	    g = CONVERT_ADJUST((y - (0.3455 * (u - 128) - 0.7169 * (v - 128))));
 	    b = CONVERT_ADJUST((y + (1.7790 * (u - 128))));
@@ -266,35 +173,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	    RGBframe[3 * j + 1] = g;
 	    RGBframe[3 * j + 2] = r;
 	   }
-
-
-
-	  // unsigned char y, u, v, r, g, b;
-	  // for (int i = 0; i < Height_i; ++i)
-	  // for (int j = 0; j < Width_i; ++j){
-		 //  y = Framebuffer[i*Width_i + j];
-		 //  u = Framebuffer[Height_i*Width_i + i / 2 * Width_i / 2 + j / 2];
-		 //  v = Framebuffer[Height_i*Width_i + Height_i*Width_i / 4 + i / 2 * Width_i / 2 + j / 2];
-		 //  r = CONVERT_ADJUST(y + 1.4075 *(v - 128));
-		 //  g = CONVERT_ADJUST(y - 0.3455 *(u - 128) - 0.7169 *(v - 128));
-		 //  b = CONVERT_ADJUST(y + 1.779  *(u - 128));
-		 //  /*r=trunc(r);
-		 //  g=trunc(g);
-		 //  b=trunc(b);
-		 //  rgb24[((HEIGHT-i-1)*WIDTH + j)*3] = b;
-		 //  rgb24[((HEIGHT-i-1)*WIDTH+ j)*3 + 1]= g;
-		 //  rgb24[((HEIGHT-i-1)*WIDTH+ j)*3 + 2] = r;
-		 //  */
-
-		 //  /* rgb24[((HEIGHT - i - 1)*WIDTH + j) * 3] = CONVERT_ADJUST(b);
-			//rgb24[((HEIGHT - i - 1)*WIDTH + j) * 3 + 1] = (g);
-			//rgb24[((HEIGHT - i - 1)*WIDTH + j) * 3 + 2] = (r);*/
-
-		 //  RGBframe[(i)*Width_i + j] = r;
-		 //  RGBframe[(i)*Width_i + j + 1] = g;
-		 //  RGBframe[(i)*Width_i + j + 2] = b;
-	  // }
-
 
 
 	   //BMP Header  
@@ -328,16 +206,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	   ReleaseDC(hWnd, hdc);
 
-	   Sleep(1000/20);
+	   Sleep(1000/30);
 	  // if (fgetc(yuv_in) == EOF) break;
 	  if( feof(yuv_in)) break;
    }
-
-
-
-
-
-
 
    return TRUE;
 }
